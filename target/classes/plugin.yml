@@ -1,0 +1,8 @@
+name: Beautifier
+version: '0.5'
+main: ru.windstone.beautifier.BeautifierPlugin
+api-version: 1.19
+authors: [ windstone ]
+softdepend:
+  - PlaceholderAPI
+  - DecentHolograms
