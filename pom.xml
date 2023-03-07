@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ru.windstone</groupId>
-    <artifactId>beautifier</artifactId>
-    <version>0.5</version>
+    <artifactId>Beautifier</artifactId>
+    <version>0.7</version>
     <packaging>jar</packaging>
 
     <name>Beautifier</name>
@@ -23,8 +23,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <source>14</source>
+                    <target>14</target>
                 </configuration>
             </plugin>
             <plugin>

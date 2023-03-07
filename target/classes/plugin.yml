@@ -1,5 +1,5 @@
 name: Beautifier
-version: '0.5'
+version: '0.7'
 main: ru.windstone.beautifier.BeautifierPlugin
 api-version: 1.19
 authors: [ windstone ]

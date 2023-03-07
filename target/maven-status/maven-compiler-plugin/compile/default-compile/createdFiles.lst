@@ -1,6 +1,4 @@
-ru\windstone\beautifier\Events\EntityDamageByPlayer.class
-ru\windstone\beautifier\Events\PlayerGetsAdvancement.class
 ru\windstone\beautifier\Commands\ReloadConfig.class
-ru\windstone\beautifier\Events\PlayerQuit.class
-ru\windstone\beautifier\Events\PlayerJoin.class
+ru\windstone\beautifier\Events\PlayerListener.class
 ru\windstone\beautifier\BeautifierPlugin.class
+ru\windstone\beautifier\Events\DamageListener.class
