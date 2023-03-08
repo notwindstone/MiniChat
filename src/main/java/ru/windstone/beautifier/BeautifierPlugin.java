@@ -22,15 +22,19 @@ public final class BeautifierPlugin extends JavaPlugin {
     public BeautifierPlugin() throws IOException {
     }
 
+    // При загрузке плагина выполнится этот блок кода
     public void onLoad() {
         instance = this;
 
         log.info("Beautifier был успешно загружен.");
     }
+
+    // При включении плагина выполнится этот блок кода
     @Override
     public void onEnable() {
         instance = this;
 
+        // Попытка создания конфига
         try {
             writeConfig();
         } catch (IOException e) {
@@ -39,14 +43,17 @@ public final class BeautifierPlugin extends JavaPlugin {
 
         log.info(ChatColor.YELLOW + "Проверяю включённые модули в конфиге...");
 
+        // Кэширование результата
         Section modulesSection = config.getSection("modules");
 
+        // Проверка на включённый модуль PlayerChat
         if (modulesSection.getBoolean("player-chat-enabled")) {
             log.info(ChatColor.YELLOW + "Модуль PlayerChat включён! Пытаюсь найти PlaceholderAPI...");
 
             if (instanceManager.getPlugin("PlaceholderAPI") != null) {
                 log.info(ChatColor.GREEN + "PlaceholderAPI был найден.");
 
+                // Регистрация ивента
                 instanceManager.registerEvents(new PlayerListener(this), this);
             }
             else {
@@ -54,12 +61,14 @@ public final class BeautifierPlugin extends JavaPlugin {
             }
         }
 
+        // Проверка на включённый модуль DamageIndicator
         if (modulesSection.getBoolean("damage-indicator-enabled")) {
             log.info(ChatColor.YELLOW + "Модуль DamageIndicator включён! Пытаюсь найти DecentHolograms...");
 
             if (instanceManager.getPlugin("DecentHolograms") != null) {
                 log.info(ChatColor.GREEN + "DecentHolograms был найден.");
 
+                // Регистрация ивента
                 instanceManager.registerEvents(new DamageListener(this), this);
             }
             else {
@@ -67,6 +76,7 @@ public final class BeautifierPlugin extends JavaPlugin {
             }
         }
 
+        // Регистрация новой команды
         BukkitCommandHandler commandHandler = BukkitCommandHandler.create(this);
         commandHandler.register(new ReloadConfig(this));
 
@@ -77,6 +87,7 @@ public final class BeautifierPlugin extends JavaPlugin {
         return instance;
     }
 
+    // При выключении плагина выполнится этот блок кода
     @Override
     public void onDisable() {
         log.info(ChatColor.GREEN + "Beautifier был успешно выключен.");
@@ -84,6 +95,7 @@ public final class BeautifierPlugin extends JavaPlugin {
 
     public YamlDocument config = YamlDocument.create(new File(getDataFolder(), "config.yml"), getResource("config.yml"));
     public void writeConfig() throws IOException {
+        // Если конфиг не содержит секцию модулей, то он будет перезаписан
         if (config.getSection("modules") == null) {
             Section modulesSection = config.createSection("modules");
             Section messagesSection = config.createSection("messages");
@@ -105,6 +117,7 @@ public final class BeautifierPlugin extends JavaPlugin {
             messagesSection.set("first-join", "%player_name% впервые зашел на сервер");
             messagesSection.set("join", "<color:#ffc182><hover:show_text:' <newline>   <gradient:#DF45DF:#123456>%player_last_join_date%</gradient>   <newline> '>%player_name%</hover> зашёл на сервер</color>");
             messagesSection.set("quit", "<blue>%player_name% вышел из игры");
+            messagesSection.set("death", "<blue>%player_name% умер");
 
             messagesSection.set("story-advancement", "%player_name% выполнил story <hover:show_text:\"%beautifier_title%<newline>%beautifier_description%\"><#1FFBB2>%beautifier_title%</hover>");
             messagesSection.set("adventure-advancement", "%player_name% выполнил adventure <hover:show_text:\"%beautifier_title%<newline>%beautifier_description%\"><#1FFBB2>%beautifier_title%</hover>");
@@ -121,6 +134,7 @@ public final class BeautifierPlugin extends JavaPlugin {
     }
 
     public void reloadConfig() {
+        // Попытка перезагрузки значений из конфига
         try {
             config.reload();
             log.info(ChatColor.GOLD + "Конфигурационный файл был успешно перезагружен!");

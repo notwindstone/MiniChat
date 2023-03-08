@@ -14,6 +14,7 @@ public class ReloadConfig {
         this.instance = instance;
     }
 
+    // Создание команды "/beautifier reload" с помощью аннотаций библиотеки Lamp
     @Subcommand("reload")
     @Description("Reload the config")
     //@CommandPermission("beautifier.admin.reload")
