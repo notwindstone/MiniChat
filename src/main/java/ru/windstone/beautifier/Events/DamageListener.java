@@ -49,8 +49,8 @@ public class DamageListener implements Listener {
             damagePlainMessage = messagesSection.getString("entity-damage-high");
         }
 
-        // Замена переменной %beautifier_damage% на damageFormat
-        damagePlainMessage = damagePlainMessage.replace("%beautifier_damage%", damageFormat);
+        // Замена переменной <damage> на damageFormat
+        damagePlainMessage = damagePlainMessage.replace("<damage>", damageFormat);
 
         // Присвоение строки списку, т.к. того требует DecentHolograms
         List<String> line = Collections.singletonList(damagePlainMessage);

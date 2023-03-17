@@ -133,16 +133,16 @@ public class PlayerListener implements Listener {
         Component advancementDisplayTitle = advancementDisplay.title();
         Component advancementDisplayDescription = advancementDisplay.description();
 
-        // Замена переменной %beautifier_title% на компонент advancementDisplayTitle
+        // Замена переменной <title> на компонент advancementDisplayTitle
         Component betweenComponentAdvancement = inputComponentAdvancement.replaceText(replacementBuilder ->
                 replacementBuilder
-                        .matchLiteral("%beautifier_title%")
+                        .matchLiteral("<title>")
                         .replacement(advancementDisplayTitle)
         );
-        // Замена переменной %beautifier_title% на компонент advancementDisplayDescription
+        // Замена переменной <description> на компонент advancementDisplayDescription
         Component outputAdvancementComponent = betweenComponentAdvancement.replaceText(replacementBuilder ->
                 replacementBuilder
-                        .matchLiteral("%beautifier_description%")
+                        .matchLiteral("<description>")
                         .replacement(advancementDisplayDescription)
         );
 
@@ -163,9 +163,23 @@ public class PlayerListener implements Listener {
         );
 
         // Строка будет переведена в тип компонента с форматированием текста по MiniMessage
-        Component componentDeath = MiniMessage.miniMessage().deserialize(stringDeath);
+        Component inputComponentDeathMessage = MiniMessage.miniMessage().deserialize(stringDeath);
 
-        // Замена сообщения о смерти игрока на componentDeath
-        event.deathMessage(componentDeath);
+        // Берётся сообщение со смертью игрока и в нём убирается никнейм игрока
+        Component componentDeathCause = event.deathMessage().replaceText(replacementBuilder ->
+                replacementBuilder
+                        .matchLiteral(player.getName())
+                        .replacement("")
+        );
+
+        // Замена переменной <death_cause> на componentDeathCause
+        Component outputComponentDeathMessage = inputComponentDeathMessage.replaceText(replacementBuilder ->
+                replacementBuilder
+                        .matchLiteral("<death_cause>")
+                        .replacement(componentDeathCause)
+        );
+
+        // Замена сообщения о смерти игрока на outputComponentDeathMessage
+        event.deathMessage(outputComponentDeathMessage);
     }
 }

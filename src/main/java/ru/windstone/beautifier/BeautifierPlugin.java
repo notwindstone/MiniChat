@@ -110,24 +110,29 @@ public final class BeautifierPlugin extends JavaPlugin {
             modulesSection.set("damage-indicator-enabled", true);
 
             messagesSection.addComment(" Здесь можно изменить сообщения, которые отправляются при выполнении ивента.");
-            messagesSection.addComment(" К сожалению, названия и описания достижений не работают с градиентом.");
+            messagesSection.addComment(" К сожалению, названия, описания достижений и причины смерти не работают с градиентом.");
             messagesSection.addComment(" Для голограмм формат MiniMessage пока не доступен.");
             messagesSection.addComment(" Используйте сайт https://wiki.decentholograms.eu/general/format-and-colors/colors");
+            messagesSection.addComment(" Доступные переменные:");
+            messagesSection.addComment(" <title> - выводит название достижения");
+            messagesSection.addComment(" <description> - выводит описание достижения");
+            messagesSection.addComment(" <death_cause> - выводит причину смерти");
+            messagesSection.addComment(" <damage> - выводит урон, нанесённый игроком сущности");
 
             messagesSection.set("first-join", "%player_name% впервые зашел на сервер");
             messagesSection.set("join", "<color:#ffc182><hover:show_text:' <newline>   <gradient:#DF45DF:#123456>%player_last_join_date%</gradient>   <newline> '>%player_name%</hover> зашёл на сервер</color>");
             messagesSection.set("quit", "<blue>%player_name% вышел из игры");
-            messagesSection.set("death", "<blue>%player_name% умер");
+            messagesSection.set("death", "<blue>%player_name%<gradient:#FFC182:#FB8B30><death_cause></gradient>");
 
-            messagesSection.set("story-advancement", "%player_name% выполнил story <hover:show_text:\"%beautifier_title%<newline>%beautifier_description%\"><#1FFBB2>%beautifier_title%</hover>");
-            messagesSection.set("adventure-advancement", "%player_name% выполнил adventure <hover:show_text:\"%beautifier_title%<newline>%beautifier_description%\"><#1FFBB2>%beautifier_title%</hover>");
-            messagesSection.set("nether-advancement", "%player_name% выполнил nether <hover:show_text:\"%beautifier_title%<newline>%beautifier_description%\"><#1FFBB2>%beautifier_title%</hover>");
-            messagesSection.set("end-advancement", "%player_name% выполнил end <hover:show_text:\"%beautifier_title%<newline>%beautifier_description%\"><#1FFBB2>%beautifier_title%</hover>");
-            messagesSection.set("husbandry-advancement", "%player_name% выполнил husbandry <hover:show_text:\"%beautifier_title%<newline>%beautifier_description%\"><#1FFBB2>%beautifier_title%</hover>");
+            messagesSection.set("story-advancement", "%player_name% выполнил story <hover:show_text:\"<title><newline><description>\"><#1FFBB2><title></hover>");
+            messagesSection.set("adventure-advancement", "%player_name% выполнил adventure <hover:show_text:\"<title><newline><description>\"><#1FFBB2><title></hover>");
+            messagesSection.set("nether-advancement", "%player_name% выполнил nether <hover:show_text:\"<title><newline><description>\"><#1FFBB2><title></hover>");
+            messagesSection.set("end-advancement", "%player_name% выполнил end <hover:show_text:\"<title><newline><description>\"><#1FFBB2><title></hover>");
+            messagesSection.set("husbandry-advancement", "%player_name% выполнил husbandry <hover:show_text:\"<title><newline><description>\"><#1FFBB2><title></hover>");
 
-            messagesSection.set("entity-damage-low", "<#FBEE44>⚔ %beautifier_damage%</#FBEE44>");
-            messagesSection.set("entity-damage-medium", "<#FB8B30>⚔ %beautifier_damage%</#FB8B30>");
-            messagesSection.set("entity-damage-high", "<#FB2E71>⚔ %beautifier_damage%</#FB2E71>");
+            messagesSection.set("entity-damage-low", "<#FBEE44>⚔ <damage></#FBEE44>");
+            messagesSection.set("entity-damage-medium", "<#FB8B30>⚔ <damage></#FB8B30>");
+            messagesSection.set("entity-damage-high", "<#FB2E71>⚔ <damage></#FB2E71>");
 
             config.save();
         }
